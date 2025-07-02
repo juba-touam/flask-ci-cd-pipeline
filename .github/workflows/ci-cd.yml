@@ -1,13 +1,13 @@
-name: CI/CD Pipeline - Step 2
+name: CI/CD Pipeline - Step 3
 
 on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]  
+    branches: [main]
 
 jobs:
-  install-and-check:
+  install-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,8 +17,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-            python-version: '3.x'
+          python-version: '3.x'
+
       - name: Install dependencies
         run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: |
+          pytest
